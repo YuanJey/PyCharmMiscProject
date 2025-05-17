@@ -5,7 +5,6 @@ import time
 # 按 双击 ⇧ 在所有地方搜索类、文件、工具窗口、操作和设置。
 import uuid
 import json
-from telnetlib import EC
 
 import requests
 from selenium import webdriver
