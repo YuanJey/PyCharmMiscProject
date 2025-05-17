@@ -5,9 +5,15 @@ import time
 # 按 双击 ⇧ 在所有地方搜索类、文件、工具窗口、操作和设置。
 import uuid
 import json
+from telnetlib import EC
+
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+
 m_100='https://sc.yuanda.info/pg/234.html'
 m_200='https://sc.yuanda.info/pg/235.html'
 m_500='https://sc.yuanda.info/pg/237.html'
@@ -15,6 +21,8 @@ m_1000='https://sc.yuanda.info/pg/240.html'
 m_2000='https://sc.yuanda.info/pg/241.html'
 def play(driver,number):
     # driver.get('https://sc.yuanda.info/pg/234.html')
+    wait = WebDriverWait(driver, 20)
+
     if  number==100:
         driver.get(m_100)
     elif number==200:
@@ -26,20 +34,28 @@ def play(driver,number):
     elif number==2000:
         driver.get(m_2000)
 
-    time.sleep(1)
-    # buy_button = driver.find_element(By.CSS_SELECTOR, 'a.buy-btn')
-    buy_button = driver.find_element(By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn')
-    buy_button.click()
-    time.sleep(1)
-    play1 = driver.find_element(By.XPATH, '//div//ul//li//a[text()="找人代付"]')
-    play1.click()
-    # icon_element = driver.find_element(
-    #     By.CSS_SELECTOR,
-    #     'div.style-zhifu div.zhifu-box ul.zfb li i.icon-check-zf'
-    # )
-    # icon_element.click()
-    submit_button = driver.find_element(By.ID, 'jiesuan')
-    submit_button.click()
+    icon_element = wait.until(
+        EC.presence_of_element_located((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
+    )
+    icon_element.click()
+
+    icon_element1 = wait.until(
+        EC.presence_of_element_located((By.XPATH, '//div//ul//li//a[text()="找人代付"]'))
+    )
+    icon_element1.click()
+
+    icon_element2 = wait.until(
+        EC.presence_of_element_located((By.ID, 'jiesuan'))
+    )
+    icon_element2.click()
+    # buy_button = driver.find_element(By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn')
+    # buy_button.click()
+
+    # play1 = driver.find_element(By.XPATH, '//div//ul//li//a[text()="找人代付"]')
+    # play1.click()
+
+    # submit_button = driver.find_element(By.ID, 'jiesuan')
+    # submit_button.click()
 
 
 def check(src):
@@ -77,7 +93,6 @@ def config_and_play(driver):
         number100 = data['100']
         for i in range(number100):
             play(driver,100)
-            time.sleep(1)
         print("100完成")
 
         number200 = data['200']
