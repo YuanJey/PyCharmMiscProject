@@ -34,7 +34,7 @@ def check(src):
 
 def play(driver, number):
     """根据编号访问对应页面并模拟操作"""
-    wait = WebDriverWait(driver, 20)
+    wait = WebDriverWait(driver, 5)
     url_map = {
         100: m_100,
         200: m_200,
@@ -55,15 +55,15 @@ def play(driver, number):
         )
         icon_element.click()
         # 找“找人代付”并点击
-        icon_element1 = wait.until(
+        icon_element = wait.until(
             EC.presence_of_element_located((By.XPATH, '//div//ul//li//a[text()="找人代付"]'))
         )
-        icon_element1.click()
+        icon_element.click()
         # 点击结算按钮
-        icon_element2 = wait.until(
+        icon_element = wait.until(
             EC.presence_of_element_located((By.ID, 'jiesuan'))
         )
-        icon_element2.click()
+        icon_element.click()
     except Exception as e:
         print(f"操作失败：{e}")
 
