@@ -25,10 +25,19 @@ def play(driver,number):
         driver.get(m_1000)
     elif number==2000:
         driver.get(m_2000)
-    buy_button = driver.find_element(By.CSS_SELECTOR, 'a.buy-btn')
+
+    time.sleep(1)
+    # buy_button = driver.find_element(By.CSS_SELECTOR, 'a.buy-btn')
+    buy_button = driver.find_element(By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn')
     buy_button.click()
-    play = driver.find_element(By.XPATH, '//div//ul//li//a[text()="找人代付"]')
-    play.click()
+    time.sleep(1)
+    play1 = driver.find_element(By.XPATH, '//div//ul//li//a[text()="找人代付"]')
+    play1.click()
+    # icon_element = driver.find_element(
+    #     By.CSS_SELECTOR,
+    #     'div.style-zhifu div.zhifu-box ul.zfb li i.icon-check-zf'
+    # )
+    # icon_element.click()
     submit_button = driver.find_element(By.ID, 'jiesuan')
     submit_button.click()
 
@@ -68,9 +77,9 @@ def config_and_play(driver):
         number100 = data['100']
         for i in range(number100):
             play(driver,100)
-            print("100面额已经完成"+i+1)
-            time.sleep(10)
+            time.sleep(1)
         print("100完成")
+
         number200 = data['200']
         for i in range(number200):
             play(driver,200)
