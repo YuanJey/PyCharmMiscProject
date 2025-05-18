@@ -39,24 +39,33 @@ def buy(url, number):
 
     try:
         driver.get(url)
-        wait = WebDriverWait(driver, 4)
-        # 等待“立即购买”按钮出现并点击
-        icon_element = wait.until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
+
+        # wait = WebDriverWait(driver, 4)
+        # # 等待“立即购买”按钮出现并点击
+        # icon_element = wait.until(
+        #     EC.presence_of_element_located((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
+        # )
+        # icon_element.click()
+
+        buy_button = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
         )
-        icon_element.click()
+        # 使用JavaScript点击
+        driver.execute_script("arguments[0].click();", buy_button)
+
         # 找“找人代付”并点击
-        pay_button = WebDriverWait(driver, 5).until(
+        pay_button = WebDriverWait(driver, 1).until(
             EC.element_to_be_clickable((By.ID, 'alipay'))
         )
         driver.execute_script("arguments[0].click();", pay_button)
 
         # 点击结算按钮
-        submit_btn = WebDriverWait(driver, 5).until(
+        submit_btn = WebDriverWait(driver, 1).until(
             EC.element_to_be_clickable((By.ID, 'jiesuan'))
         )
         # 使用JavaScript点击
         driver.execute_script("arguments[0].click();", submit_btn)
+        print(number,"面额购买成功+1")
     except Exception as e:
         print(f"操作失败：{e}","金额:",number)
         if  number==100:
@@ -110,7 +119,6 @@ if __name__ == '__main__':
         print("开始购买2000面额：", m2000,  "张")
         for i in range(m2000):
             buy(m_2000,2000)
-        print("购买完成")
         print("100面额购买失败次数：", f_100)
         print("200面额购买失败次数：", f_200)
         print("500面额购买失败次数：", f_500)
