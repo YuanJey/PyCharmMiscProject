@@ -34,7 +34,7 @@ def check(src):
 
 def play(driver, number):
     """根据编号访问对应页面并模拟操作"""
-    wait = WebDriverWait(driver, 5)
+    wait = WebDriverWait(driver, 1)
     url_map = {
         100: m_100,
         200: m_200,
@@ -65,7 +65,7 @@ def play(driver, number):
         )
         icon_element.click()
     except Exception as e:
-        print(f"操作失败：{e}")
+        print(f"操作失败：{e}","金额:",number)
 
 
 def config_and_play(driver):
