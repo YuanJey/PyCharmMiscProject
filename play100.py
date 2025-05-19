@@ -105,6 +105,7 @@ if __name__ == '__main__':
     result = check(mac_str)
     if result:
         print("验证通过，即将开始执行。")
+        t1=int(input("请输入间隔："))
         m100=int(input("请输入要后买100的数量："))
         m200=int(input("请输入要后买200的数量："))
         m500=int(input("请输入要后买500的数量："))
@@ -114,22 +115,23 @@ if __name__ == '__main__':
         print("开始购买100面额：", m100,  "张")
         for i in range(m100):
             buy(m_100,100)
+            time.sleep(t1)
         print("开始购买200面额：", m200,  "张")
         for i in range(m200):
             buy(m_200,200)
+            time.sleep(t1)
         print("开始购买500面额：", m500,  "张")
         for i in range(m500):
             buy(m_500,500)
+            time.sleep(t1)
         print("开始购买1000面额：", m1000,  "张")
         for i in range(m1000):
             buy(m_1000,1000)
+            time.sleep(t1)
         print("开始购买2000面额：", m2000,  "张")
         for i in range(m2000):
             buy(m_2000,2000)
-        print("100面额购买失败次数：", f_100)
-        print("200面额购买失败次数：", f_200)
-        print("500面额购买失败次数：", f_500)
-        print("1000面额购买失败次数：", f_1000)
-        print("2000面额购买失败次数：", f_2000)
+            time.sleep(t1)
+        print("购买完成！")
     else:
         print("MAC验证未通过或无权限。")
