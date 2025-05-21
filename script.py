@@ -13,13 +13,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 
-m_100='https://sc.yuanda.info/pg/234.html'
-m_200='https://sc.yuanda.info/pg/235.html'
-m_500='https://sc.yuanda.info/pg/237.html'
-m_1000='https://sc.yuanda.info/pg/240.html'
-m_2000='https://sc.yuanda.info/pg/241.html'
+m_100='https://sc.yuanda.biz/pg/234.html'
+m_200='https://sc.yuanda.biz/pg/235.html'
+m_500='https://sc.yuanda.biz/pg/237.html'
+m_1000='https://sc.yuanda.biz/pg/240.html'
+m_2000='https://sc.yuanda.biz/pg/241.html'
 def play(driver,number):
-    # driver.get('https://sc.yuanda.info/pg/234.html')
+    # driver.get('https://sc.yuanda.biz/pg/234.html')
     wait = WebDriverWait(driver, 20)
 
     if  number==100:
@@ -75,7 +75,7 @@ def check(src):
     return 0
 def start():
     driver = webdriver.Chrome()
-    driver.get('https://sc.yuanda.info/')
+    driver.get('https://sc.yuanda.biz/')
     login = driver.find_element(By.XPATH, '//div//ul//li//a[text()="登录"]')
     login.click()
     input("请在浏览器中完成登陆操作后，按Enter继续...")

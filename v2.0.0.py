@@ -95,6 +95,47 @@ def login():
         login_btn.click()
         input("登陆完成后，按Enter继续...")
 
+def logout():
+    try:
+        # 点击退出登录按钮
+        logout_link = WebDriverWait(driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, '//a[@href="/jingdian/User/loginOut.html"]'))
+        )
+        # 直接点击
+        logout_link.click()
+        print("已成功退出登录。")
+    except Exception as e:
+        print(f"退出登录失败：{e}")
+
+def start():
+    t1 = int(input("请输入间隔："))
+    m100 = int(input("请输入要后买100的数量："))
+    m200 = int(input("请输入要后买200的数量："))
+    m500 = int(input("请输入要后买500的数量："))
+    m1000 = int(input("请输入要后买1000的数量："))
+    m2000 = int(input("请输入要后买2000的数量："))
+    print("开始购买100面额：", m100, "张")
+    for i in range(m100):
+        buy(m_100, 100)
+        time.sleep(t1)
+    print("开始购买200面额：", m200, "张")
+    for i in range(m200):
+        buy(m_200, 200)
+        time.sleep(t1)
+    print("开始购买500面额：", m500, "张")
+    for i in range(m500):
+        buy(m_500, 500)
+        time.sleep(t1)
+    print("开始购买1000面额：", m1000, "张")
+    for i in range(m1000):
+        buy(m_1000, 1000)
+        time.sleep(t1)
+    print("开始购买2000面额：", m2000, "张")
+    for i in range(m2000):
+        buy(m_2000, 2000)
+        time.sleep(t1)
+    print("购买完成！")
+
 
 driver=webdriver.Chrome()
 if __name__ == '__main__':
@@ -105,33 +146,13 @@ if __name__ == '__main__':
     result = check(mac_str)
     if result:
         print("验证通过，即将开始执行。")
-        t1=int(input("请输入间隔："))
-        m100=int(input("请输入要后买100的数量："))
-        m200=int(input("请输入要后买200的数量："))
-        m500=int(input("请输入要后买500的数量："))
-        m1000=int(input("请输入要后买1000的数量："))
-        m2000=int(input("请输入要后买2000的数量："))
-        login()
-        print("开始购买100面额：", m100,  "张")
-        for i in range(m100):
-            buy(m_100,100)
-            time.sleep(t1)
-        print("开始购买200面额：", m200,  "张")
-        for i in range(m200):
-            buy(m_200,200)
-            time.sleep(t1)
-        print("开始购买500面额：", m500,  "张")
-        for i in range(m500):
-            buy(m_500,500)
-            time.sleep(t1)
-        print("开始购买1000面额：", m1000,  "张")
-        for i in range(m1000):
-            buy(m_1000,1000)
-            time.sleep(t1)
-        print("开始购买2000面额：", m2000,  "张")
-        for i in range(m2000):
-            buy(m_2000,2000)
-            time.sleep(t1)
-        print("购买完成！")
+        while True:
+            login()
+            start()
+            cont = input("是否继续（1:登陆下一个账号，其他任意键，退出）：")
+            if cont == '1':
+                logout()
+            else:
+                break
     else:
         print("MAC验证未通过或无权限。")

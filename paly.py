@@ -8,11 +8,11 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 # 固定页面链接
-m_100 = 'https://sc.yuanda.info/pg/234.html'
-m_200 = 'https://sc.yuanda.info/pg/235.html'
-m_500 = 'https://sc.yuanda.info/pg/237.html'
-m_1000 = 'https://sc.yuanda.info/pg/240.html'
-m_2000 = 'https://sc.yuanda.info/pg/241.html'
+m_100 = 'https://sc.yuanda.biz/pg/234.html'
+m_200 = 'https://sc.yuanda.biz/pg/235.html'
+m_500 = 'https://sc.yuanda.biz/pg/237.html'
+m_1000 = 'https://sc.yuanda.biz/pg/240.html'
+m_2000 = 'https://sc.yuanda.biz/pg/241.html'
 
 
 def check(src):
@@ -99,7 +99,7 @@ def start():
     driver = webdriver.Chrome()
     try:
         # driver = webdriver.Chrome(executable_path=driver_path, options=options)
-        driver.get('https://sc.yuanda.info/')
+        driver.get('https://sc.yuanda.biz/')
         # 点击登录
         login_btn = WebDriverWait(driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, '//div//ul//li//a[text()="登录"]'))

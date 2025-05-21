@@ -11,7 +11,7 @@ driver=webdriver.Chrome()
 
 
 def login():
-    driver.get('https://sc.yuanda.info/')
+    driver.get('https://sc.yuanda.biz/')
     # 点击登录
     login_btn = WebDriverWait(driver, 10).until(
         EC.element_to_be_clickable((By.XPATH, '//div//ul//li//a[text()="登录"]'))
@@ -21,7 +21,7 @@ def login():
 if __name__ == '__main__':
     wait = WebDriverWait(driver, 4)
     login()
-    driver.get('https://sc.yuanda.info/pg/234.html')
+    driver.get('https://sc.yuanda.biz/pg/234.html')
     # 等待“立即购买”按钮出现并点击
     icon_element = wait.until(
         EC.presence_of_element_located((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
