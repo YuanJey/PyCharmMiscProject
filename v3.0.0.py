@@ -38,17 +38,8 @@ f_1000 = 0
 f_2000 = 0
 def buy(url, number):
     global f_100, f_200, f_500, f_1000, f_2000
-
     try:
         driver.get(url)
-
-        # wait = WebDriverWait(driver, 4)
-        # # 等待“立即购买”按钮出现并点击
-        # icon_element = wait.until(
-        #     EC.presence_of_element_located((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
-        # )
-        # icon_element.click()
-
         buy_button = WebDriverWait(driver, 5).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
         )
@@ -110,7 +101,6 @@ def logout():
         print(f"退出登录失败：{e}")
 
 def start():
-    t1 = int(input("请输入间隔："))
     m100 = int(input("请输入要后买100的数量："))
     m200 = int(input("请输入要后买200的数量："))
     m500 = int(input("请输入要后买500的数量："))
@@ -119,23 +109,18 @@ def start():
     print("开始购买100面额：", m100, "张")
     for i in range(m100):
         buy(m_100, 100)
-        time.sleep(t1)
     print("开始购买200面额：", m200, "张")
     for i in range(m200):
         buy(m_200, 200)
-        time.sleep(t1)
     print("开始购买500面额：", m500, "张")
     for i in range(m500):
         buy(m_500, 500)
-        time.sleep(t1)
     print("开始购买1000面额：", m1000, "张")
     for i in range(m1000):
         buy(m_1000, 1000)
-        time.sleep(t1)
     print("开始购买2000面额：", m2000, "张")
     for i in range(m2000):
         buy(m_2000, 2000)
-        time.sleep(t1)
     print("购买完成！")
 
 def create_driver():
