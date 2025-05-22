@@ -124,11 +124,12 @@ def start():
     print("购买完成！")
 
 def create_driver():
-    options = Options()
-    timestamp = str(int(time.time() * 1000))  # 毫秒时间戳
-    profile_dir = os.path.join("./Temp/chrome_profile_", timestamp)
-    options.add_argument(f'--user-data-dir={profile_dir}')
-    return webdriver.Chrome(options=options)
+    # options = Options()
+    # timestamp = str(int(time.time() * 1000))  # 毫秒时间戳
+    # profile_dir = os.path.join("./", timestamp)
+    # options.add_argument(f'--user-data-dir={profile_dir}')
+    # return webdriver.Chrome(options=options)
+    return webdriver.Chrome()
 driver=create_driver()
 if __name__ == '__main__':
     # 获取MAC地址，并转为字符串
