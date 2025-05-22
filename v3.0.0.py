@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from ddddocr import DdddOcr
 def check(src):
     """通过网络请求验证MAC地址"""
     url = 'https://test-1312265679.cos.ap-chengdu.myqcloud.com/config.json'
@@ -88,15 +87,7 @@ def buy(url, number):
             f_1000+=1
         elif number==2000:
             f_2000+=1
-def get_code():
-    session = requests.Session()
-    response = session.get('https://sc.yuanda.biz/admin/login/checkVerify.html')
-    with open('captcha.png', 'wb') as f:
-        f.write(response.content)
-    ocr = DdddOcr()
-    with open('captcha.png', 'rb') as f:
-        img_bytes = f.read()
-    return ocr.classification(img_bytes)
+
 def login():
         driver.get('https://sc.yuanda.biz/')
         # 点击登录
@@ -104,7 +95,6 @@ def login():
             EC.element_to_be_clickable((By.XPATH, '//div//ul//li//a[text()="登录"]'))
         )
         login_btn.click()
-        print("验证码：",get_code())
         input("登陆完成后，按Enter继续...")
 
 def logout():
