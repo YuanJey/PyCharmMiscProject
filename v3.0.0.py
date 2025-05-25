@@ -6,7 +6,6 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.chrome.options import Options
 def check(src):
     """通过网络请求验证MAC地址"""
     url = 'https://test-1312265679.cos.ap-chengdu.myqcloud.com/config.json'
@@ -40,7 +39,7 @@ def buy(url, number):
     global f_100, f_200, f_500, f_1000, f_2000
     try:
         driver.get(url)
-        buy_button = WebDriverWait(driver, 5).until(
+        buy_button = WebDriverWait(driver, 1).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, 'div.cart-buy > a.buy-btn'))
         )
         # 使用JavaScript点击
@@ -59,7 +58,7 @@ def buy(url, number):
         # 使用JavaScript点击
         driver.execute_script("arguments[0].click();", submit_btn)
 
-        success_message = WebDriverWait(driver, 10).until(
+        success_message = WebDriverWait(driver, 5).until(
             EC.presence_of_element_located((By.ID, 'zhengwen'))
         )
         message_text = success_message.text
