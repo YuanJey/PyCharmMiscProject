@@ -30,13 +30,7 @@ m_1000 = 'https://sc.yuanda.biz/pg/240.html'
 m_2000 = 'https://sc.yuanda.biz/pg/241.html'
 
 # global f_100,f_200,f_500,f_1000,f_2000
-f_100 = 0
-f_200 = 0
-f_500 = 0
-f_1000 = 0
-f_2000 = 0
 def buy(url, number):
-    global f_100, f_200, f_500, f_1000, f_2000
     try:
         driver.get(url)
         buy_button = WebDriverWait(driver, 1).until(
@@ -67,16 +61,6 @@ def buy(url, number):
         print(number,"面额购买成功+1")
     except Exception as e:
         print(f"操作失败：{e}","金额:",number)
-        if  number==100:
-            f_100+=1
-        elif number==200:
-            f_200+=1
-        elif number==500:
-            f_500+=1
-        elif number==1000:
-            f_1000+=1
-        elif number==2000:
-            f_2000+=1
 def get_code_from_path(image_path, api_key):
     # 读取本地图片内容（二进制）
     try:
@@ -130,15 +114,16 @@ def login(account, password):
         EC.element_to_be_clickable((By.XPATH, '//div//ul//li//a[text()="登录"]'))
     )
     login_btn.click()
-    veriimg = driver.find_element(By.ID, 'veriimg')
-    veriimg.screenshot('veriimg.png')
-    captcha_code = get_code_from_path("veriimg.png",
-                                      "4f7fe23e7cd68680a6b320982be0a1c9")
-    if captcha_code:
-        print('最终验证码为:', captcha_code)
-        veri_input = driver.find_element(By.ID, 'veri')
-        # 点击按钮
-        veri_input.send_keys( captcha_code)
+
+    # veriimg = driver.find_element(By.ID, 'veriimg')
+    # veriimg.screenshot('veriimg.png')
+    # captcha_code = get_code_from_path("veriimg.png","4f7fe23e7cd68680a6b320982be0a1c9")
+    # if captcha_code:
+    #     print('最终验证码为:', captcha_code)
+    #     veri_input = driver.find_element(By.ID, 'veri')
+    #     # 点击按钮
+    #     veri_input.send_keys( captcha_code)
+
     account_input = driver.find_element(By.ID, 'account')
     # 输入账号（例如：testuser）
     account_input.send_keys(account)
@@ -147,10 +132,37 @@ def login(account, password):
     # 输入密码（例如：mypassword123）
     password_input.send_keys(password)
     # 定位按钮
-    login_button = driver.find_element(By.ID, 'loginbtn')
-    # 点击按钮
-    login_button.click()
+    # login_button = driver.find_element(By.ID, 'loginbtn')
+    # # 点击按钮
+    # login_button.click()
     # input("登陆完成后，按Enter继续...")
+
+    while True:
+        # 获取验证码图片
+        veriimg = driver.find_element(By.ID, 'veriimg')
+        veriimg.screenshot('veriimg.png')
+        captcha_code = get_code_from_path("veriimg.png", "4f7fe23e7cd68680a6b320982be0a1c9")
+        if captcha_code:
+            print('识别到验证码:', captcha_code)
+            # 输入验证码
+            veri_input = driver.find_element(By.ID, 'veri')
+            veri_input.clear()
+            veri_input.send_keys(captcha_code)
+
+            # 定位按钮
+            login_button = driver.find_element(By.ID, 'loginbtn')
+            # 点击按钮
+            login_button.click()
+            time.sleep(3)  # 等待页面加载
+            current_url = driver.current_url
+            if current_url == 'https://sc.yuanda.biz/jingdian/user/uscenter.html':
+                print('登录成功！')
+                break
+            else:
+                print('登录失败，重新识别验证码...')
+        else:
+            print('验证码识别失败，重试...')
+        time.sleep(1)  # 做适当延时，避免请求过快
 
 def logout():
     try:
