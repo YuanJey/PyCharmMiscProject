@@ -157,19 +157,21 @@ def create_driver():
 driver=create_driver()
 if __name__ == '__main__':
     # 获取MAC地址，并转为字符串
-    mac_address = uuid.getnode()
-    mac_str = str(mac_address)
-    print("检测MAC：", mac_str)
-    result = check(mac_str)
-    if result:
-        print("验证通过，即将开始执行。")
-        while True:
-            login()
-            start()
-            cont = input("是否继续（1:登陆下一个账号，其他任意键，退出）：")
-            if cont == '1':
-                logout()
-            else:
-                break
-    else:
-        print("MAC验证未通过或无权限。")
+    # mac_address = uuid.getnode()
+    # mac_str = str(mac_address)
+    # print("检测MAC：", mac_str)
+    # result = check(mac_str)
+    # if result:
+    #     print("验证通过，即将开始执行。")
+    #     while True:
+    #         login()
+    #         start()
+    #         cont = input("是否继续（1:登陆下一个账号，其他任意键，退出）：")
+    #         if cont == '1':
+    #             logout()
+    #         else:
+    #             break
+    # else:
+    #     print("MAC验证未通过或无权限。")
+    login()
+    get_code()
